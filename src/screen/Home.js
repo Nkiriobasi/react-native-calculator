@@ -3,63 +3,55 @@ import { StyleSheet, View, SafeAreaView } from 'react-native';
 import Button from '../components/Button';
 import Row from '../components/Row';
 import DisplayScreen from '../components/DisplayScreen';
-import calculator from '../util/calculator';
+import calculator, { initialState } from '../util/calculator';
 
-const initialState = {
-  currentValue: "0",
-  operator: null,
-  previousValue: null
-};
 
 const Home = () => {
   const [displayData, setDisplayData] = useState(initialState);
 
-  const { 
-    container, 
-    innerContainer,
-  } = styles
 
-  const handleTap = (type, value) => {
+  const handlePress = (type, value) => {
     setDisplayData(() => calculator(type, value, displayData))
   };
 
+
   return (
-    <View style={container}>
-      <SafeAreaView style={innerContainer}>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.innerContainer}>
         <DisplayScreen display={displayData} />
       
         <Row>
-          <Button onPress={() => handleTap("clear")} text='C' theme='secondary'/>
-          <Button onPress={() => handleTap("posneg")} text='+/-' theme='secondary' />
-          <Button onPress={() => handleTap("percentage")} text='%' theme='secondary' />
-          <Button onPress={() => handleTap("operator", "/")} text='/' theme="accent" />
+          <Button onPress={() => handlePress("clear")} text='C' theme='secondary'/>
+          <Button onPress={() => handlePress("posneg")} text='+/-' theme='secondary' />
+          <Button onPress={() => handlePress("percentage")} text='%' theme='secondary' />
+          <Button onPress={() => handlePress("operator", "/")} text='/' theme="accent" />
         </Row>
 
         <Row>
-          <Button onPress={() => handleTap("number", 7)} text='7' />
-          <Button onPress={() => handleTap("number", 8)} text='8' />
-          <Button onPress={() => handleTap("number", 9)} text='9' />
-          <Button onPress={() => handleTap("operator", "*")} text='x' theme="accent" />
+          <Button onPress={() => handlePress("number", 7)} text='7' />
+          <Button onPress={() => handlePress("number", 8)} text='8' />
+          <Button onPress={() => handlePress("number", 9)} text='9' />
+          <Button onPress={() => handlePress("operator", "*")} text='x' theme="accent" />
         </Row>
         
         <Row>
-          <Button onPress={() => handleTap("number", 4)} text="4" />
-          <Button onPress={() => handleTap("number", 5)} text="5" />
-          <Button onPress={() => handleTap("number", 6)} text="6" />
-          <Button onPress={() => handleTap("operator", "-")} text="-" theme="accent" />
+          <Button onPress={() => handlePress("number", 4)} text="4" />
+          <Button onPress={() => handlePress("number", 5)} text="5" />
+          <Button onPress={() => handlePress("number", 6)} text="6" />
+          <Button onPress={() => handlePress("operator", "-")} text="-" theme="accent" />
         </Row>
 
         <Row>
-          <Button onPress={() => handleTap("number", 1)} text="1" />
-          <Button onPress={() => handleTap("number", 2)} text="2" />
-          <Button onPress={() => handleTap("number", 3)} text="3" />
-          <Button onPress={() => handleTap("operator", "+")} text="+" theme="accent" />
+          <Button onPress={() => handlePress("number", 1)} text="1" />
+          <Button onPress={() => handlePress("number", 2)} text="2" />
+          <Button onPress={() => handlePress("number", 3)} text="3" />
+          <Button onPress={() => handlePress("operator", "+")} text="+" theme="accent" />
         </Row>
 
         <Row>
-          <Button onPress={() => handleTap("number", 0)} text="0" />
-          <Button onPress={() => handleTap("number", ".")} text="." />
-          <Button onPress={() => handleTap("equal")} text="=" theme="accent" />
+          <Button onPress={() => handlePress("number", 0)} text="0" />
+          <Button onPress={() => handlePress("number", ".")} text="." />
+          <Button onPress={() => handlePress("equal", "equal")} text="=" theme="accent" />
         </Row>
       </SafeAreaView>
     </View>
@@ -84,32 +76,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 10
   },
-  normalDimension: {
-    width: 74, 
-    height: 74,
-    borderRadius: 74/2
-  },
-  largeDimension: {
-    // width: 168, 
-    width: '39%', 
-    height: 74,
-    borderRadius: 74/2
-  },
-  bgDark: {
-    backgroundColor: '#2e3033'
-  },
-  bgYellow: {
-    backgroundColor: '#f5a442'
-  },
-  bgGray: {
-    backgroundColor: '#d1cdc9'
-  },
-  blackText: {
-    color: 'black'
-  },
-  whiteText: {
-    color: 'white'
-  }
 });
 
 export default Home;
